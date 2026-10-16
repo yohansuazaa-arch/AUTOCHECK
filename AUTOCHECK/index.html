@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoCheck – Mantén todo en check</title>
+<meta name="description" content="AutoCheck centraliza el mantenimiento y los documentos de tu carro o moto y te avisa antes de que algo venza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#inicio"><span class="logo-mark">✓</span>AutoCheck</a>
+  <nav>
+    <a href="#problema">El problema</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#planes">Planes</a>
+    <a href="#equipo">Equipo</a>
+  </nav>
+  <div class="nav-actions">
+    <a class="btn btn-ghost" href="app.html">Iniciar sesión</a>
+    <a class="btn btn-solid" href="app.html#registro">Crear cuenta</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Porque lo que te mueve importa, mantén todo en check.</h1>
+      <p class="lead">Registra tu carro o moto, guarda el SOAT y la tecnomecánica, anota cada mantenimiento y recibe un aviso antes de que algo venza.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid btn-lg" href="app.html#registro">Empieza gratis</a>
+        <a class="btn btn-ghost btn-lg" href="#funciones">Ver qué hace</a>
+      </div>
+    </div>
+
+    <aside class="status-card" aria-label="Ejemplo del estado de un vehículo">
+      <div class="status-head">
+        <div>
+          <p class="plate">KLM 482</p>
+          <p class="car">Chevrolet Spark GT · 2018</p>
+        </div>
+        <span class="pill pill-ok">Al día</span>
+      </div>
+      <ul class="checks">
+        <li><span class="dot ok"></span><div><b>SOAT</b><small>Vence el 14 de marzo de 2027</small></div><em>Al día</em></li>
+        <li><span class="dot warn"></span><div><b>Tecnomecánica</b><small>Vence en 12 días</small></div><em>Próxima a vencer</em></li>
+        <li><span class="dot ok"></span><div><b>Cambio de aceite</b><small>Próximo servicio en 11 días</small></div><em>Programado</em></li>
+        <li><span class="dot bad"></span><div><b>Revisión de frenos</b><small>Venció hace 3 días</small></div><em>Vencido</em></li>
+      </ul>
+      <p class="status-note">Así se ve tu panel principal.</p>
+    </aside>
+  </section>
+
+  <section class="section" id="problema">
+    <h2>Un olvido pequeño sale caro</h2>
+    <div class="problem">
+      <p class="problem-intro">Casi todos llevamos el control del vehículo en recordatorios sueltos del celular, papeles guardados en la guantera o en la memoria. Cuando la información está dispersa, es fácil pasar por alto una fecha.</p>
+      <ul class="costs">
+        <li><b>Multas</b> por circular con el SOAT o la tecnomecánica vencidos.</li>
+        <li><b>Gastos inesperados</b> por un mantenimiento que se aplazó demasiado.</li>
+        <li><b>Fallas mecánicas</b> que ponen en riesgo a quien conduce.</li>
+        <li><b>Tiempo perdido</b> buscando cuándo se hizo el último cambio de aceite.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band" id="funciones">
+    <h2>Todo tu vehículo en un solo lugar</h2>
+    <div class="features">
+      <article>
+        <h3>Registro de vehículos</h3>
+        <p>Guarda tipo, marca, modelo, año, placa y kilometraje de tu carro o tu moto.</p>
+      </article>
+      <article>
+        <h3>Historial de mantenimiento</h3>
+        <p>Anota aceite, frenos, llantas y otros servicios. Verás el más reciente primero.</p>
+      </article>
+      <article>
+        <h3>Control de documentos</h3>
+        <p>Registra el SOAT y la tecnomecánica con su fecha de expedición y de vencimiento.</p>
+      </article>
+      <article>
+        <h3>Recordatorios con anticipación</h3>
+        <p>Te avisamos con tiempo antes de cada vencimiento y de cada mantenimiento, por notificación y por correo.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="como-funciona">
+    <h2>Cómo funciona</h2>
+    <ol class="steps">
+      <li><h3>Crea tu cuenta</h3><p>Solo necesitas tu nombre, un correo y una contraseña.</p></li>
+      <li><h3>Registra tu vehículo</h3><p>Agrega los datos del vehículo, sus documentos y su último mantenimiento.</p></li>
+      <li><h3>Recibe el aviso</h3><p>AutoCheck calcula las fechas y te recuerda a tiempo. Tú solo revisas el panel.</p></li>
+    </ol>
+  </section>
+
+  <section class="section band" id="planes">
+    <h2>Empieza gratis, crece cuando lo necesites</h2>
+    <div class="plans">
+      <article class="plan">
+        <h3>Gratis</h3>
+        <p class="price">$0</p>
+        <ul>
+          <li>1 vehículo</li>
+          <li>Mantenimientos y documentos</li>
+          <li>Recordatorios básicos</li>
+        </ul>
+        <a class="btn btn-ghost" href="app.html#registro">Crear cuenta gratis</a>
+      </article>
+      <article class="plan plan-premium">
+        <h3>Premium</h3>
+        <p class="price">Suscripción mensual</p>
+        <ul>
+          <li>Varios vehículos</li>
+          <li>Historial detallado</li>
+          <li>Recordatorios avanzados</li>
+        </ul>
+        <a class="btn btn-solid" href="app.html#registro">Probar Premium</a>
+      </article>
+    </div>
+    <p class="plans-note">Inicialmente para propietarios particulares en Colombia. Más adelante: conductores independientes, empresas con flotas y talleres aliados.</p>
+  </section>
+
+  <section class="section" id="equipo">
+    <h2>El equipo detrás de AutoCheck</h2>
+    <div class="team">
+      <article>
+        <h3>Yohan Felipe Suaza Cano</h3>
+        <p class="role">CEO</p>
+        <p>Dirige el proyecto, define los objetivos y coordina las áreas. Representa a AutoCheck ante clientes, aliados e inversionistas.</p>
+      </article>
+      <article>
+        <h3>Juan José Quiros Usma</h3>
+        <p class="role">CTO</p>
+        <p>Lidera el desarrollo tecnológico, elige las tecnologías y se encarga de la seguridad de la aplicación.</p>
+      </article>
+      <article>
+        <h3>Yoselyn Puerta Vélez</h3>
+        <p class="role">CMO</p>
+        <p>Estudia las necesidades de los usuarios, diseña las estrategias de marketing y construye alianzas comerciales.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Mantén todo en check con AutoCheck.</h2>
+    <p>Buscamos propietarios de carros y motos que quieran probar la plataforma como usuarios piloto, y talleres interesados en ser aliados.</p>
+    <a class="btn btn-solid btn-lg" href="app.html#registro">Crear mi cuenta gratis</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><b>AutoCheck</b> · Proyecto PA-PIA · Ingeniería de Software I · Institución Universitaria Pascual Bravo</p>
+  <p><a href="taller.html">¿Tienes un taller? Únete como aliado</a> · <a href="admin.html">Administración</a></p>
+  <p>yohan.suaza911@pascualbravo.edu.co · juan.quiros694@pascualbravo.edu.co · yoselyn.puerta423@pascualbravo.edu.co</p>
+</footer>
+
+</body>
+</html>
