@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoCheck – Talleres aliados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="app-body">
+<header class="nav">
+  <a class="logo" href="index.html"><span class="logo-mark">✓</span>AutoCheck</a>
+  <div class="nav-actions" style="margin-left:auto"><a class="btn btn-ghost" href="index.html">Volver al inicio</a></div>
+</header>
+<main class="panel">
+  <h1>Únete como taller aliado</h1>
+  <p class="lead">Los propietarios que tengan un mantenimiento próximo verán tu taller recomendado según los servicios que ofreces. Esta función hace parte de una fase futura de AutoCheck. Tu solicitud será revisada por el administrador antes de aparecer como taller aliado.</p>
+
+  <form id="form-taller" class="card-form" novalidate>
+    <p class="ok-msg" id="taller-ok" role="status" hidden>Solicitud enviada. El administrador la revisará y la aceptará o la rechazará.</p>
+    <div class="field">
+      <label for="t-nombre">Nombre del taller</label>
+      <input id="t-nombre" type="text">
+      <p class="field-error" data-for="t-nombre"></p>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label for="t-dir">Dirección</label>
+        <input id="t-dir" type="text">
+        <p class="field-error" data-for="t-dir"></p>
+      </div>
+      <div class="field">
+        <label for="t-ciudad">Ciudad</label>
+        <input id="t-ciudad" type="text">
+        <p class="field-error" data-for="t-ciudad"></p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="t-tel">Teléfono</label>
+      <input id="t-tel" type="tel" inputmode="numeric" placeholder="3001234567">
+      <p class="field-error" data-for="t-tel"></p>
+    </div>
+    <fieldset class="field checks-group" id="t-servicios">
+      <legend>Tipos de servicio que ofreces</legend>
+      <label><input type="checkbox" name="serv" value="Cambio de aceite"> Cambio de aceite</label>
+      <label><input type="checkbox" name="serv" value="Frenos"> Frenos</label>
+      <label><input type="checkbox" name="serv" value="Llantas"> Llantas</label>
+      <label><input type="checkbox" name="serv" value="Motor"> Motor</label>
+      <label><input type="checkbox" name="serv" value="Otro"> Otro</label>
+      <p class="field-error" data-for="t-servicios"></p>
+    </fieldset>
+    <div class="field">
+      <label class="check-line"><input id="t-acuerdo" type="checkbox"> Confirmo que tengo un acuerdo de alianza vigente con AutoCheck.</label>
+      <p class="field-error" data-for="t-acuerdo"></p>
+    </div>
+    <button class="btn btn-solid btn-lg" type="submit">Enviar solicitud</button>
+  </form>
+
+  <h2 class="sub">Talleres aliados activos</h2>
+  <div id="lista-talleres-reg" class="historial"></div>
+</main>
+<script src="taller.js"></script>
+</body>
+</html>

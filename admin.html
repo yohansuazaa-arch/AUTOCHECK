@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoCheck – Administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="app-body">
+<header class="nav">
+  <button class="btn btn-ghost btn-menu" id="btn-menu" type="button" aria-controls="admin-menu" aria-expanded="true" hidden><span aria-hidden="true">☰</span> Menú</button>
+  <a class="logo" href="index.html"><span class="logo-mark">✓</span>AutoCheck <small style="font-weight:500;color:var(--muted)">Administración</small></a>
+  <div class="nav-actions" style="margin-left:auto"><button class="btn btn-ghost" id="btn-salir-admin" type="button" hidden>Cerrar sesión</button></div>
+</header>
+
+<main class="auth" id="admin-acceso" style="min-height:70vh">
+  <div class="auth-card">
+    <h1>Acceso de administrador</h1>
+    <form id="form-admin" novalidate>
+      <p class="form-error" id="admin-error" role="alert" hidden></p>
+      <div class="field">
+        <label for="admin-pin">Clave de administración</label>
+        <input id="admin-pin" type="password" autocomplete="off">
+      </div>
+      <button class="btn btn-solid btn-lg btn-full" type="submit">Entrar</button>
+    </form>
+  </div>
+</main>
+
+<div class="admin-layout" id="admin-panel" hidden>
+
+  <!-- Menú lateral -->
+  <aside class="admin-menu" id="admin-menu" aria-label="Menú de administración">
+    <div class="admin-menu-top">
+      <span class="admin-menu-titulo">Administración</span>
+      <button class="admin-menu-cerrar" id="btn-menu-cerrar" type="button" aria-label="Cerrar menú">✕</button>
+    </div>
+    <nav>
+      <button class="menu-item" type="button" data-sec="seguridad"><span>Seguridad</span></button>
+      <button class="menu-item" type="button" data-sec="datos"><span>Datos almacenados</span></button>
+      <button class="menu-item" type="button" data-sec="solicitudes"><span>Solicitudes de talleres</span><span class="badge prog" id="menu-sol-badge" hidden></span></button>
+      <button class="menu-item" type="button" data-sec="talleres"><span>Talleres aliados</span></button>
+      <button class="menu-item" type="button" data-sec="citas"><span>Citas en talleres</span><span class="badge prog" id="menu-cita-badge" hidden></span></button>
+      <button class="menu-item" type="button" data-sec="respaldo"><span>Copia de respaldo</span></button>
+    </nav>
+  </aside>
+  <div class="admin-fondo" id="admin-fondo"></div>
+
+  <!-- Contenido -->
+  <main class="admin-main">
+
+    <!-- Seguridad -->
+    <section class="admin-sec" id="sec-seguridad">
+      <h1>Seguridad</h1>
+      <p class="lead">Estado de seguridad del sistema. Es una vista de prototipo: los datos viven en este navegador.</p>
+      <div id="admin-estado" class="historial"></div>
+    </section>
+
+    <!-- Datos almacenados -->
+    <section class="admin-sec" id="sec-datos" hidden>
+      <h1>Datos almacenados</h1>
+      <p class="detalle-txt">Haz clic en un recuadro para ver el detalle de esos datos.</p>
+      <dl class="ficha" id="admin-conteos"></dl>
+
+      <!-- Detalle de la colección elegida (los usuarios se pueden editar) -->
+      <section id="admin-detalle" class="bloque" hidden>
+        <div class="panel-top">
+          <h2 class="sub" id="detalle-titulo" style="margin:0"></h2>
+          <button class="btn btn-ghost" id="btn-cerrar-detalle" type="button">Cerrar detalle</button>
+        </div>
+        <p class="ok-msg" id="ua-ok" role="status" hidden>Datos del usuario actualizados y operación registrada.</p>
+
+        <form id="form-usuario-admin" class="card-form" novalidate hidden>
+          <h3>Editar usuario</h3>
+          <div class="grid2">
+            <div class="field">
+              <label for="au-nombre">Nombre</label>
+              <input id="au-nombre" type="text" maxlength="50">
+              <p class="field-error" data-for="au-nombre"></p>
+            </div>
+            <div class="field">
+              <label for="au-apellido">Apellido</label>
+              <input id="au-apellido" type="text" maxlength="50">
+              <p class="field-error" data-for="au-apellido"></p>
+            </div>
+            <div class="field">
+              <label for="au-tipodoc">Tipo de documento</label>
+              <select id="au-tipodoc">
+                <option value="CC">Cédula de ciudadanía</option>
+                <option value="CE">Cédula de extranjería</option>
+                <option value="TI">Tarjeta de identidad</option>
+                <option value="PA">Pasaporte</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="au-documento">Número de documento</label>
+              <input id="au-documento" type="text">
+              <p class="field-error" data-for="au-documento"></p>
+            </div>
+            <div class="field">
+              <label for="au-correo">Correo electrónico</label>
+              <input id="au-correo" type="email">
+              <p class="field-error" data-for="au-correo"></p>
+            </div>
+            <div class="field">
+              <label for="au-tel">Teléfono (opcional)</label>
+              <input id="au-tel" type="tel" inputmode="numeric">
+              <p class="field-error" data-for="au-tel"></p>
+            </div>
+            <div class="field">
+              <label for="au-plan">Plan</label>
+              <select id="au-plan"><option value="gratis">Gratis</option><option value="premium">Premium</option></select>
+            </div>
+          </div>
+          <div class="acciones">
+            <button class="btn btn-solid" type="submit">Guardar cambios</button>
+            <button class="btn btn-ghost" id="btn-cancelar-ua" type="button">Cancelar</button>
+          </div>
+        </form>
+
+        <div id="detalle-lista" class="historial"></div>
+      </section>
+    </section>
+
+    <!-- Solicitudes de talleres -->
+    <section class="admin-sec" id="sec-solicitudes" hidden>
+      <div class="panel-top">
+        <h1>Solicitudes de talleres <span class="badge prog" id="sol-badge"></span></h1>
+      </div>
+      <div id="admin-solicitudes" class="historial"></div>
+    </section>
+
+    <!-- Talleres aliados -->
+    <section class="admin-sec" id="sec-talleres" hidden>
+      <div class="panel-top">
+        <h1>Talleres aliados</h1>
+        <a class="btn btn-ghost" href="taller.html">Ver formulario de solicitud</a>
+      </div>
+      <div id="admin-talleres" class="historial"></div>
+    </section>
+
+    <!-- Citas en talleres -->
+    <section class="admin-sec" id="sec-citas" hidden>
+      <div class="panel-top">
+        <h1>Citas en talleres <span class="badge prog" id="cita-badge"></span></h1>
+      </div>
+      <p class="lead">Los propietarios piden citas en los talleres aliados y las solicitudes llegan aquí. Puedes aprobarlas tal como llegan, cambiarlas (taller, fecha u hora) o rechazarlas. Al aprobar, se notifica al taller.</p>
+      <p class="ok-msg" id="cita-ok" role="status" hidden></p>
+
+      <form id="form-cita-admin" class="card-form" novalidate hidden>
+        <h3 id="cita-form-titulo">Cambiar cita</h3>
+        <p class="detalle-txt" id="cita-form-resumen"></p>
+        <div class="grid2">
+          <div class="field">
+            <label for="ca-taller">Taller</label>
+            <select id="ca-taller"></select>
+            <p class="field-error" data-for="ca-taller"></p>
+          </div>
+          <div class="field">
+            <label for="ca-fecha">Fecha</label>
+            <input id="ca-fecha" type="date">
+            <p class="field-error" data-for="ca-fecha"></p>
+          </div>
+          <div class="field">
+            <label for="ca-hora">Hora</label>
+            <input id="ca-hora" type="time" min="07:00" max="18:00">
+            <p class="field-error" data-for="ca-hora"></p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ca-nota">Mensaje para el propietario (opcional)</label>
+          <textarea id="ca-nota" rows="3" maxlength="300"></textarea>
+          <p class="hint">Máximo 300 caracteres.</p>
+        </div>
+        <div class="acciones">
+          <button class="btn btn-solid" type="submit">Aprobar con estos datos</button>
+          <button class="btn btn-ghost" id="btn-cancelar-ca" type="button">Cancelar</button>
+        </div>
+      </form>
+
+      <div id="admin-citas" class="historial"></div>
+    </section>
+
+    <!-- Copia de respaldo -->
+    <section class="admin-sec" id="sec-respaldo" hidden>
+      <h1>Copia de respaldo</h1>
+      <p class="lead">Descarga un archivo con todos los datos de AutoCheck guardados en este navegador.</p>
+      <p class="ok-msg" id="respaldo-ok" role="status" hidden></p>
+      <p class="form-error" id="respaldo-error" role="alert" hidden></p>
+      <button class="btn btn-solid" id="btn-respaldo" type="button">Generar copia de respaldo</button>
+      <h2 class="sub">Registro de operaciones</h2>
+      <div id="admin-log" class="historial"></div>
+    </section>
+
+  </main>
+</div>
+<script src="admin.js"></script>
+</body>
+</html>

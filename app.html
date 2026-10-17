@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoCheck – Mi cuenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="app-body">
+
+<!-- Vista: acceso (CU-01 Registrarse, CU-02 Iniciar sesión) -->
+<main id="vista-auth" class="auth" hidden>
+  <a class="logo" href="index.html"><span class="logo-mark">✓</span>AutoCheck</a>
+
+  <div class="auth-card">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-login" aria-controls="form-login" class="tab">Iniciar sesión</button>
+      <button role="tab" id="tab-registro" aria-controls="form-registro" class="tab">Crear cuenta</button>
+    </div>
+
+    <form id="form-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
+      <h1>Bienvenido de nuevo</h1>
+      <p class="form-error" id="login-error" role="alert" hidden></p>
+      <div class="field">
+        <label for="login-correo">Correo electrónico</label>
+        <input id="login-correo" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="login-clave">Contraseña</label>
+        <input id="login-clave" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-solid btn-lg btn-full" type="submit">Iniciar sesión</button>
+    </form>
+
+    <form id="form-registro" role="tabpanel" aria-labelledby="tab-registro" novalidate hidden>
+      <h1>Crea tu cuenta gratis</h1>
+      <p class="form-error" id="registro-error" role="alert" hidden></p>
+      <div class="grid2">
+        <div class="field">
+          <label for="reg-nombre">Nombre</label>
+          <input id="reg-nombre" type="text" maxlength="50" autocomplete="given-name" required>
+          <p class="field-error" data-for="reg-nombre"></p>
+        </div>
+        <div class="field">
+          <label for="reg-apellido">Apellido</label>
+          <input id="reg-apellido" type="text" maxlength="50" autocomplete="family-name" required>
+          <p class="field-error" data-for="reg-apellido"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="reg-tipodoc">Tipo de documento</label>
+        <select id="reg-tipodoc">
+          <option value="CC">Cédula de ciudadanía</option>
+          <option value="CE">Cédula de extranjería</option>
+          <option value="TI">Tarjeta de identidad</option>
+          <option value="PA">Pasaporte</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="reg-documento">Número de documento</label>
+        <input id="reg-documento" type="text" required>
+        <p class="field-error" data-for="reg-documento"></p>
+      </div>
+      <div class="field">
+        <label for="reg-correo">Correo electrónico</label>
+        <input id="reg-correo" type="email" autocomplete="email" required>
+        <p class="field-error" data-for="reg-correo"></p>
+      </div>
+      <div class="field">
+        <label for="reg-telefono">Teléfono (opcional)</label>
+        <input id="reg-telefono" type="tel" inputmode="numeric" autocomplete="tel">
+        <p class="field-error" data-for="reg-telefono"></p>
+      </div>
+      <div class="field">
+        <label for="reg-clave">Contraseña</label>
+        <input id="reg-clave" type="password" minlength="8" autocomplete="new-password" required>
+        <p class="hint">Mínimo 8 caracteres.</p>
+        <p class="field-error" data-for="reg-clave"></p>
+      </div>
+      <button class="btn btn-solid btn-lg btn-full" type="submit">Crear cuenta</button>
+    </form>
+  </div>
+  <p class="auth-foot"><a href="index.html">← Volver al inicio</a></p>
+</main>
+
+<!-- Vista: panel principal (se completa en los siguientes pasos) -->
+<div id="vista-panel" hidden>
+  <header class="nav">
+    <a class="logo" href="app.html"><span class="logo-mark">✓</span>AutoCheck</a>
+    <div class="nav-actions" style="margin-left:auto">
+      <span class="pill pill-plan" id="panel-plan"></span>
+      <button class="btn btn-ghost" id="btn-perfil" type="button">Mi perfil</button>
+      <button class="btn btn-ghost" id="btn-salir" type="button">Cerrar sesión</button>
+    </div>
+  </header>
+  <main class="panel">
+    <!-- Lista: CU-04 Consultar vehículo -->
+    <section id="sec-lista">
+      <div class="panel-top">
+        <h1 id="panel-saludo"></h1>
+        <button class="btn btn-solid" id="btn-agregar" type="button">Agregar vehículo</button>
+      </div>
+      <div class="form-error aviso" id="limite-aviso" role="alert" hidden>
+        <p>El plan gratuito permite registrar 1 vehículo. La gestión de varios vehículos es parte del plan Premium.</p>
+        <button class="btn btn-solid" id="btn-premium" type="button">Activar Premium de prueba</button>
+      </div>
+      <div class="alerta" id="alerta-doc" role="status" hidden></div>
+      <div class="alerta" id="alerta-citas" role="status" hidden></div>
+      <h2 class="sub">Mis vehículos</h2>
+      <div id="lista-vehiculos" class="vehiculos"></div>
+      <section id="vacio" class="empty">
+        <h2>Aún no tienes vehículos</h2>
+        <p>Registra tu primer carro o moto para empezar a llevar el control.</p>
+        <button class="btn btn-solid" id="btn-agregar-vacio" type="button">Agregar vehículo</button>
+      </section>
+
+      <!-- CU-09 / CU-10: recordatorios -->
+      <section class="bloque" id="bandeja">
+        <div class="panel-top">
+          <h2 class="sub">Recordatorios</h2>
+          <button class="btn btn-ghost" id="btn-avisos" type="button" hidden>Activar avisos del navegador</button>
+        </div>
+        <p class="detalle-txt">Avisamos con anticipación: documentos a 30, 15 y 5 días del vencimiento; mantenimientos a 15 y 5 días. El correo se simula en esta bandeja.</p>
+        <div id="lista-rec" class="historial"></div>
+      </section>
+
+      <!-- Citas en talleres: el propietario ve la respuesta del administrador -->
+      <section class="bloque" id="bloque-citas-panel">
+        <div class="panel-top">
+          <h2 class="sub">Mis citas en talleres</h2>
+        </div>
+        <p class="detalle-txt">Pide una cita desde la ficha de tu vehículo. El administrador de AutoCheck la revisa y la aprueba o la cambia; aquí ves la respuesta.</p>
+        <div id="lista-citas-panel" class="historial"></div>
+      </section>
+    </section>
+
+    <!-- Perfil: el usuario consulta y edita sus datos -->
+    <section id="sec-perfil" hidden>
+      <button class="link-back" id="btn-volver-perfil" type="button">← Mis vehículos</button>
+      <h1>Mi perfil</h1>
+      <form id="form-perfil" class="card-form" novalidate>
+        <p class="ok-msg" id="perfil-ok" role="status" hidden>Tus datos se actualizaron.</p>
+        <div class="grid2">
+          <div class="field">
+            <label for="p-nombre">Nombre</label>
+            <input id="p-nombre" type="text" maxlength="50">
+            <p class="field-error" data-for="p-nombre"></p>
+          </div>
+          <div class="field">
+            <label for="p-apellido">Apellido</label>
+            <input id="p-apellido" type="text" maxlength="50">
+            <p class="field-error" data-for="p-apellido"></p>
+          </div>
+          <div class="field">
+            <label for="p-tipodoc">Tipo de documento</label>
+            <select id="p-tipodoc">
+              <option value="CC">Cédula de ciudadanía</option>
+              <option value="CE">Cédula de extranjería</option>
+              <option value="TI">Tarjeta de identidad</option>
+              <option value="PA">Pasaporte</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="p-documento">Número de documento</label>
+            <input id="p-documento" type="text">
+            <p class="field-error" data-for="p-documento"></p>
+          </div>
+          <div class="field">
+            <label for="p-correo">Correo electrónico</label>
+            <input id="p-correo" type="email">
+            <p class="field-error" data-for="p-correo"></p>
+          </div>
+          <div class="field">
+            <label for="p-tel">Teléfono (opcional)</label>
+            <input id="p-tel" type="tel" inputmode="numeric">
+            <p class="field-error" data-for="p-tel"></p>
+          </div>
+        </div>
+        <button class="btn btn-solid btn-lg" type="submit">Guardar cambios</button>
+      </form>
+    </section>
+
+    <!-- Formulario: CU-03 Registrar vehículo -->
+    <section id="sec-form" hidden>
+      <button class="link-back" id="btn-cancelar" type="button">← Cancelar</button>
+      <h1 id="veh-titulo">Agregar vehículo</h1>
+      <form id="form-vehiculo" class="card-form" novalidate>
+        <p class="form-error" id="vehiculo-error" role="alert" hidden></p>
+        <div class="field">
+          <label for="v-tipo">Tipo de vehículo</label>
+          <select id="v-tipo"><option value="carro">Carro</option><option value="moto">Moto</option></select>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="v-marca">Marca</label>
+            <input id="v-marca" type="text" placeholder="Chevrolet">
+            <p class="field-error" data-for="v-marca"></p>
+          </div>
+          <div class="field">
+            <label for="v-modelo">Modelo</label>
+            <input id="v-modelo" type="text" placeholder="Spark GT">
+            <p class="field-error" data-for="v-modelo"></p>
+          </div>
+          <div class="field">
+            <label for="v-anio">Año de fabricación</label>
+            <input id="v-anio" type="number" placeholder="2018">
+            <p class="field-error" data-for="v-anio"></p>
+          </div>
+          <div class="field">
+            <label for="v-placa">Placa</label>
+            <input id="v-placa" type="text" maxlength="7" placeholder="AAA123" autocapitalize="characters">
+            <p class="hint" id="placa-hint">Carro: 3 letras y 3 números (AAA123).</p>
+            <p class="field-error" data-for="v-placa"></p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="v-km">Kilometraje actual</label>
+          <input id="v-km" type="number" placeholder="45000">
+          <p class="hint">En kilómetros.</p>
+          <p class="field-error" data-for="v-km"></p>
+        </div>
+        <button class="btn btn-solid btn-lg" id="btn-guardar-veh" type="submit">Guardar vehículo</button>
+      </form>
+    </section>
+
+    <!-- Ficha: CU-04 Consultar vehículo -->
+    <section id="sec-ficha" hidden>
+      <button class="link-back" id="btn-volver" type="button">← Mis vehículos</button>
+      <div class="ficha-head"><span class="plate" id="ficha-placa"></span><h1 id="ficha-titulo"></h1></div>
+      <div class="acciones" style="margin-bottom:1.2rem">
+        <button class="btn btn-ghost" id="btn-editar-veh" type="button">Editar vehículo</button>
+        <button class="btn btn-ghost btn-danger" id="btn-eliminar-veh" type="button">Eliminar vehículo</button>
+      </div>
+      <dl class="ficha" id="ficha-datos"></dl>
+
+      <!-- CU-05 Registrar mantenimiento / CU-06 Consultar historial -->
+      <section class="bloque" id="bloque-mant">
+        <div class="panel-top">
+          <h2 class="sub">Mantenimiento</h2>
+          <button class="btn btn-solid" id="btn-nuevo-servicio" type="button">Registrar mantenimiento</button>
+        </div>
+        <p class="ok-msg" id="servicio-ok" role="status" hidden>Mantenimiento guardado exitosamente.</p>
+
+        <form id="form-servicio" class="card-form" novalidate hidden>
+          <p class="form-error" id="servicio-error" role="alert" hidden></p>
+          <div class="grid2">
+            <div class="field">
+              <label for="m-tipo">Tipo de servicio</label>
+              <select id="m-tipo">
+                <option value="Cambio de aceite">Cambio de aceite</option>
+                <option value="Frenos">Frenos</option>
+                <option value="Llantas">Llantas</option>
+                <option value="Motor">Motor</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="m-fecha">Fecha de realización</label>
+              <input id="m-fecha" type="date">
+              <p class="field-error" data-for="m-fecha"></p>
+            </div>
+            <div class="field">
+              <label for="m-km">Kilometraje del servicio</label>
+              <input id="m-km" type="number" placeholder="45000">
+              <p class="field-error" data-for="m-km"></p>
+            </div>
+            <div class="field">
+              <label for="m-costo">Costo (opcional)</label>
+              <input id="m-costo" type="number" step="any" placeholder="120000">
+              <p class="hint">En pesos colombianos.</p>
+              <p class="field-error" data-for="m-costo"></p>
+            </div>
+            <div class="field">
+              <label for="m-proximo">Fecha del próximo servicio</label>
+              <input id="m-proximo" type="date">
+              <p class="field-error" data-for="m-proximo"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="m-obs">Observaciones (opcional)</label>
+            <textarea id="m-obs" rows="3" maxlength="300"></textarea>
+            <p class="hint">Máximo 300 caracteres.</p>
+          </div>
+          <div class="acciones">
+            <button class="btn btn-solid" id="btn-guardar-serv" type="submit">Guardar mantenimiento</button>
+            <button class="btn btn-ghost" id="btn-cancelar-servicio" type="button">Cancelar</button>
+          </div>
+        </form>
+
+        <p class="detalle-txt" id="prom-km" hidden></p>
+        <div id="lista-servicios" class="historial"></div>
+        <p class="empty soon" id="sin-servicios">Sin servicios registrados. Registra el último mantenimiento de este vehículo para empezar el historial.</p>
+      </section>
+
+      <!-- CU-14 Consultar talleres recomendados (fase futura) -->
+      <section class="talleres-rec" id="bloque-talleres" hidden>
+        <h2 class="sub">Talleres recomendados</h2>
+        <p class="detalle-txt" id="talleres-intro"></p>
+        <div id="lista-talleres" class="historial"></div>
+      </section>
+
+      <!-- Citas en taller: la solicitud la revisa el administrador -->
+      <section class="bloque" id="bloque-citas">
+        <div class="panel-top">
+          <h2 class="sub">Citas en taller</h2>
+          <button class="btn btn-solid" id="btn-nueva-cita" type="button">Agendar cita</button>
+        </div>
+        <p class="ok-msg" id="cita-ok" role="status" hidden>Solicitud enviada. El administrador la revisará y te responderá aquí.</p>
+
+        <form id="form-cita" class="card-form" novalidate hidden>
+          <p class="form-error" id="cita-error" role="alert" hidden></p>
+          <div class="grid2">
+            <div class="field">
+              <label for="c-servicio">Servicio que necesitas</label>
+              <select id="c-servicio"></select>
+            </div>
+            <div class="field">
+              <label for="c-taller">Taller aliado</label>
+              <select id="c-taller"></select>
+              <p class="hint" id="c-taller-hint"></p>
+              <p class="field-error" data-for="c-taller"></p>
+            </div>
+            <div class="field">
+              <label for="c-fecha">Fecha preferida</label>
+              <input id="c-fecha" type="date">
+              <p class="field-error" data-for="c-fecha"></p>
+            </div>
+            <div class="field">
+              <label for="c-hora">Hora preferida</label>
+              <input id="c-hora" type="time" min="07:00" max="18:00">
+              <p class="hint">Entre las 7:00 a. m. y las 6:00 p. m.</p>
+              <p class="field-error" data-for="c-hora"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="c-obs">Cuéntale al taller qué necesitas (opcional)</label>
+            <textarea id="c-obs" rows="3" maxlength="300"></textarea>
+            <p class="hint">Máximo 300 caracteres.</p>
+          </div>
+          <div class="acciones">
+            <button class="btn btn-solid" type="submit">Enviar solicitud</button>
+            <button class="btn btn-ghost" id="btn-cancelar-cita" type="button">Cancelar</button>
+          </div>
+        </form>
+
+        <div id="lista-citas" class="historial"></div>
+        <p class="empty soon" id="sin-citas">Este vehículo no tiene citas. Pulsa «Agendar cita» para pedir una en un taller aliado.</p>
+      </section>
+
+      <!-- CU-07 Registrar documentación / CU-08 Consultar documentación -->
+      <section class="bloque" id="bloque-docs">
+        <div class="panel-top">
+          <h2 class="sub">Documentos</h2>
+          <button class="btn btn-solid" id="btn-nuevo-doc" type="button">Registrar documento</button>
+        </div>
+        <p class="ok-msg" id="doc-ok" role="status" hidden>Documento registrado.</p>
+
+        <form id="form-documento" class="card-form" novalidate hidden>
+          <p class="form-error" id="documento-error" role="alert" hidden></p>
+          <div class="grid2">
+            <div class="field">
+              <label for="d-tipo">Tipo de documento</label>
+              <select id="d-tipo">
+                <option value="SOAT">SOAT</option>
+                <option value="Tecnomecánica">Tecnomecánica</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="d-numero">Número del documento</label>
+              <input id="d-numero" type="text">
+              <p class="field-error" data-for="d-numero"></p>
+            </div>
+            <div class="field">
+              <label for="d-entidad">Entidad expedidora</label>
+              <input id="d-entidad" type="text" placeholder="Aseguradora o centro de diagnóstico">
+              <p class="field-error" data-for="d-entidad"></p>
+            </div>
+            <div class="field">
+              <label for="d-expedicion">Fecha de expedición</label>
+              <input id="d-expedicion" type="date">
+              <p class="field-error" data-for="d-expedicion"></p>
+            </div>
+            <div class="field">
+              <label for="d-vencimiento">Fecha de vencimiento</label>
+              <input id="d-vencimiento" type="date">
+              <p class="field-error" data-for="d-vencimiento"></p>
+            </div>
+            <div class="field">
+              <label for="d-archivo">Archivo del documento (opcional)</label>
+              <input id="d-archivo" type="file" accept="image/*,application/pdf">
+              <p class="hint" id="d-archivo-actual">Foto o PDF de hasta 1 MB.</p>
+              <p class="field-error" data-for="d-archivo"></p>
+            </div>
+          </div>
+          <div class="acciones">
+            <button class="btn btn-solid" id="btn-guardar-doc" type="submit">Guardar documento</button>
+            <button class="btn btn-ghost" id="btn-cancelar-doc" type="button">Cancelar</button>
+          </div>
+        </form>
+
+        <div id="lista-docs" class="historial"></div>
+        <p class="empty soon" id="sin-docs">Este vehículo no tiene documentos. Registra el SOAT o la tecnomecánica para controlar su vencimiento.</p>
+      </section>
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

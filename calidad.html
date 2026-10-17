@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoCheck – Trazabilidad y calidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="app-body">
+<header class="nav">
+  <a class="logo" href="index.html"><span class="logo-mark">✓</span>AutoCheck <small style="font-weight:500;color:var(--muted)">Calidad</small></a>
+  <div class="nav-actions no-print" style="margin-left:auto"><a class="btn btn-ghost" href="app.html">Ir a la aplicación</a></div>
+</header>
+<main class="panel" style="max-width:1000px">
+  <h1>Trazabilidad y casos de prueba</h1>
+  <p class="lead">Matriz de trazabilidad (RTM) y casos de prueba QA del cuarto entregable, aplicados a este prototipo web. Cada prueba revisa los datos guardados en este navegador, así que primero usa la aplicación y luego pulsa «Verificar».</p>
+
+  <div class="acciones no-print" style="margin-bottom:1.5rem">
+    <button class="btn btn-solid" id="btn-todas" type="button">Verificar todas</button>
+    <button class="btn btn-ghost" id="btn-imprimir" type="button">Imprimir informe</button>
+  </div>
+
+  <h2 class="sub">Matriz de trazabilidad (RTM)</h2>
+  <div class="tabla-wrap">
+    <table class="tabla">
+      <thead><tr><th>Necesidad</th><th>Requisito</th><th>Tipo</th><th>Módulo en el prototipo</th><th>Caso de prueba</th><th>Resultado</th></tr></thead>
+      <tbody id="rtm"></tbody>
+    </table>
+  </div>
+
+  <h2 class="sub">Casos de prueba</h2>
+  <div id="casos" class="historial"></div>
+</main>
+<script src="calidad.js"></script>
+</body>
+</html>
